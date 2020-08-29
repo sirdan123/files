@@ -264,7 +264,9 @@ if __name__ == '__main__':
                         help='Type of detection. esrgan for video, bar or mosaic for images')
     parser.add_argument('--dcpdir', required=False,
                         metavar="/path/to/DeepCreamPy installation",
-                        help='Enter path to your DeepCreamPy folder')                        
+                        help='Enter path to your DeepCreamPy folder') 
+    parser.add_argument('--dilation_value', required=True,
+                        help='dilation_value')                                                
     args = parser.parse_args()
 
     # Validate arguments
@@ -305,6 +307,7 @@ if __name__ == '__main__':
 
     src_path = args.sources
     out_path = args.dcpdir
+    dil_value = int(args.dilation_value)
 
     # Train or evaluate
     if args.command == "train":
@@ -326,7 +329,7 @@ if __name__ == '__main__':
                         shutil.copy(src_path + '/' + fil, out_path + '/decensor_input_original/' + fil) # DCP is compatible with original jpg input.
                     except Exception as e:
                         print("ERROR in hentAI_detection: Mosaic copy to decensor_input_original failed!", fil, e)
-            detect_instance.run_on_folder(input_folder=src_path, output_folder="/content/hent-AI/input/", is_video=True, orig_video_folder ="/content/hent-AI/input_orig/", is_mosaic=True, dilation=3)
+            detect_instance.run_on_folder(input_folder=src_path, output_folder="/content/hent-AI/input/", is_video=True, orig_video_folder ="/content/hent-AI/input_orig/", is_mosaic=True, dilation=dil_value)
     else:
         print("'{}' is not recognized. "
               "Use 'train'".format(args.command))
