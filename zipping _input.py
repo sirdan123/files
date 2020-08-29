@@ -8,8 +8,10 @@ files = os.listdir(path)
 
 zip_name_base = ""
 
-zip_name_base = files[0][:-10] +".zip"
+zip_name_base = files[0][:-10] +"_input.zip"
+print(zip_name_base)
 
+print("test")
 def zipdir(path, ziph):
     # ziph is zipfile handle
     for root, dirs, files in os.walk(path):
@@ -22,8 +24,5 @@ def zipdir(path, ziph):
 zipf = zipfile.ZipFile(zip_name_base , 'w', zipfile.ZIP_DEFLATED)
 zipdir(path, zipf)
 zipf.close()
-
-source = zip_name_base
-destination = "/content/drive/My Drive/hent-AI/videos/Output/"
 
 shutil.move(source, destination)
